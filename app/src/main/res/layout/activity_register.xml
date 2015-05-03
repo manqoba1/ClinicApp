@@ -1,0 +1,132 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    tools:context="kurisani.com.clinicbookingsystem.RegisterActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <ProgressBar
+            android:id="@+id/regProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/fieldsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/regImagelayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Register Patient"
+                    android:textColor="@color/material_blue_grey_800"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txtmand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/regImagelayout"
+                android:layout_marginTop="10dp"
+                android:text="*Mandatory fields" />
+
+            <EditText
+                android:id="@+id/edtMemberName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/txtmand"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/xborder"
+                android:hint="First Name*" />
+
+            <EditText
+                android:id="@+id/edtMemberLastNAme"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/edtMemberName"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/xborder"
+                android:hint="Last Name*" />
+
+            <AutoCompleteTextView
+                android:id="@+id/edtMemberEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/edtMemberLastNAme"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/xborder"
+                android:hint="Email Address*"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/edtMemberPhone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/edtMemberEmail"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/xborder"
+                android:hint="Cellphone Number"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/edtMemberPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/edtMemberPhone"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/xborder"
+                android:hint="Enter Pin*"
+                android:inputType="numberPassword" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/btnLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fieldsLayout"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonsign"
+                android:text="Cancel"
+                android:textColor="@color/material_blue_grey_800"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnReg"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonlog"
+                android:text="Register"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
