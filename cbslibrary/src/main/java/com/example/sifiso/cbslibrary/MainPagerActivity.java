@@ -1,6 +1,7 @@
 package com.example.sifiso.cbslibrary;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.sifiso.cbslibrary.activities.BookingActivity;
 import com.example.sifiso.cbslibrary.adapter.AppointmentAdapter;
 import com.example.sifiso.cbslibrary.fragment.AppointmentListFragment;
 import com.example.sifiso.cbslibrary.fragment.PageFragment;
@@ -59,7 +61,10 @@ public class MainPagerActivity extends ActionBarActivity {
         RL_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(MainPagerActivity.this, BookingActivity.class);
+                intent.putExtra("bookings", (java.io.Serializable) response.getBookingList());
+                intent.putExtra("response",response);
+                startActivity(intent);
             }
         });
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -113,7 +118,7 @@ public class MainPagerActivity extends ActionBarActivity {
             ZoomOutPageTransformerImpl z = new ZoomOutPageTransformerImpl();
             mPager.setPageTransformer(true, z);
         } catch (Exception e) {
-            Log.e(LOG, "-- Some shit happened, probably IllegalState of some kind ...",e);
+            Log.e(LOG, "-- Some shit happened, probably IllegalState of some kind ...", e);
         }
     }
 
@@ -145,7 +150,6 @@ public class MainPagerActivity extends ActionBarActivity {
             }
         });
     }
-
 
 
     private class PagerAdapter extends FragmentStatePagerAdapter implements PageFragment {
@@ -186,6 +190,7 @@ public class MainPagerActivity extends ActionBarActivity {
 
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

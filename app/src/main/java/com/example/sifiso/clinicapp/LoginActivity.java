@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sifiso.cbslibrary.MainPagerActivity;
@@ -49,6 +50,7 @@ public class LoginActivity extends ActionBarActivity {
     Button bsFacebook, bsSignin, bsTwitter, bsGoogle;
     EditText esPin;
     String email;
+    TextView sign_up;
     AutoCompleteTextView esEmail;
 
     @Override
@@ -92,6 +94,14 @@ public class LoginActivity extends ActionBarActivity {
         bsSignin = (Button) findViewById(R.id.btnLogSubmit);
         esEmail = (AutoCompleteTextView) findViewById(R.id.edtLogEmail);
         esPin = (EditText) findViewById(R.id.edtLogPassword);
+        sign_up = (TextView) findViewById(R.id.sign_up);
+        sign_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
         checkVirgin();
 
         bsSignin.setOnClickListener(new View.OnClickListener() {

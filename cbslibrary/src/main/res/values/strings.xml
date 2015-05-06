@@ -101,6 +101,7 @@
 
     <string name="status_updates">No of consultations</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="river_not_found">River not found</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

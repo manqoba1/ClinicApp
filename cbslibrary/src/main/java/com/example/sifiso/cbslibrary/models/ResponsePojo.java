@@ -19,6 +19,15 @@ public class ResponsePojo implements Serializable{
     private PatientDTO patient;
     private List<BookingDTO> bookingList = new ArrayList<>();
     private List<TownDTO> townList = new ArrayList<>();
+    private List<ClinicDTO> clinicList = new ArrayList<>();
+
+    public List<ClinicDTO> getClinicList() {
+        return clinicList;
+    }
+
+    public void setClinicList(List<ClinicDTO> clinicList) {
+        this.clinicList = clinicList;
+    }
 
     public Integer getSuccess() {
         return success;

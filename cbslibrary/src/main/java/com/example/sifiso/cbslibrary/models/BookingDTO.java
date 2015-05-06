@@ -6,10 +6,26 @@ import java.io.Serializable;
  * Created by sifiso on 2015-05-02.
  */
 public class BookingDTO implements Serializable {
-    private Integer bookingID, clinicID, patientID;
-    private String bookingDate, dateAttended, refNumber;
+    private Integer bookingID, clinicID, patientID,timeSlotID;
+    private String bookingDate, dateAttended, refNumber,slots;
     private Integer flag;
     private ClinicDTO clinic;
+
+    public Integer getTimeSlotID() {
+        return timeSlotID;
+    }
+
+    public void setTimeSlotID(Integer timeSlotID) {
+        this.timeSlotID = timeSlotID;
+    }
+
+    public String getSlots() {
+        return slots;
+    }
+
+    public void setSlots(String slots) {
+        this.slots = slots;
+    }
 
     public Integer getBookingID() {
         return bookingID;

@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kurisani.com.clinicbookingsystem.BookingActivity">
+
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_marginTop="105dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/Sp_clinic"
+            style="@style/Title2TextStyleBlue1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:paddingLeft="4dp"
+            android:layout_alignParentStart="true"
+            android:text="Choose Clinic" />
+
+        <Button
+            android:id="@+id/btn_me_book"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/Sp_clinic"
+            android:layout_marginTop="25dp"
+            android:background="@color/OrangeRed"
+            android:inputType="textEmailAddress"
+            android:text="Book For Me"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btn_someone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_me_book"
+            android:layout_marginTop="25dp"
+            android:background="@color/blue"
+            android:text="Book for Someone"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

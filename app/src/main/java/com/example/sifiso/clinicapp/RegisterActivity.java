@@ -4,35 +4,46 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.sifiso.cbslibrary.MainPagerActivity;
+import com.example.sifiso.cbslibrary.models.PatientDTO;
+import com.example.sifiso.cbslibrary.util.DataUtil;
+import com.example.sifiso.cbslibrary.util.EmailValidator;
+import com.example.sifiso.cbslibrary.util.SharedUtil;
+import com.example.sifiso.cbslibrary.util.Util;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 public class RegisterActivity extends ActionBarActivity {
 
     Context ctx;
     Activity activity;
-    Button bsRegister, bsSignin, rsRegister, tsNext;
+    Button bsRegister, bsSignin, rsRegister;
     EditText esPin, rsTeamName, rsMemberName, rsMemberSurname;
     EditText rsCellphone, rsPin;
-    EditText rsTown;
-    ViewStub viewStub;
-    View regMemberLayout,/* SignLayout, regMiddlelay,*/
-            regTeamLayout;
-    ProgressBar reg_progress;
+
     String email, strTown;
     AutoCompleteTextView rsMemberEmail;
 
@@ -51,7 +62,8 @@ public class RegisterActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_register, menu); getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        getMenuInflater().inflate(R.menu.menu_register, menu);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Register Patient");
         return true;
@@ -75,23 +87,16 @@ public class RegisterActivity extends ActionBarActivity {
 
     public void sendRegistration() {
 
-        if (rsTeamName.getText().toString().isEmpty()) {
+        if (rsMemberName.getText().toString().isEmpty()) {
             Toast.makeText(ctx, "Enter Patient Name", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        if (rsTown == null) {
-
-            Toast.makeText(ctx, "Select Towmn", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
 
         if (rsMemberSurname.getText().toString().isEmpty()) {
             Toast.makeText(ctx, "Enter Last Name", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (rsMemberEmail.getText().toString().isEmpty()) {
+        if (rsMemberEmail.getText().toString().isEmpty() /*|| validator.validate(rsMemberEmail.getText().toString())*/) {
             Toast.makeText(ctx, "Enter Enail Address", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -100,16 +105,70 @@ public class RegisterActivity extends ActionBarActivity {
             Toast.makeText(ctx, "invalid pin", Toast.LENGTH_SHORT).show();
             return;
         }
+        PatientDTO dto = new PatientDTO();
+        dto.setEmail(rsMemberEmail.getText().toString());
+        dto.setFirstName(rsMemberName.getText().toString());
+        dto.setLastName(rsMemberSurname.getText().toString());
+        dto.setPhoneNumber(rsCellphone.getText().toString());
+        dto.setPassword(rsPin.getText().toString());
+        DataUtil.registerPatient(ctx, dto, new DataUtil.DataUtilInterface() {
+            @Override
+            public void onResponse(JSONObject r) {
+                try {
+                    if (r.getInt("success") == 0) {
+                        Util.showErrorToast(ctx, r.getString("message"));
+                        return;
+                    }
+                    Log.d(LOG, r.toString());
+                    patient = patientData(r.getJSONArray("patient"));
+                    SharedUtil.savePatientr(ctx, patient);
+                    Intent intent = new Intent(RegisterActivity.this, MainPagerActivity.class);
+                    intent.putExtra("patient", patient);
+                    startActivity(intent);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
     }
 
+    PatientDTO patient;
 
+    private PatientDTO patientData(JSONArray ar) {
+        PatientDTO dto = new PatientDTO();
+        try {
+            JSONObject ob = ar.getJSONObject(0);
+            Log.d(LOG, ob.toString());
+            dto.setEmail(ob.getString("email"));
+            dto.setPhoneNumber(ob.getString("phoneNumber"));
+            dto.setPhoneNumber(ob.getString("phoneNumber"));
+            dto.setFirstName(ob.getString("firstName"));
+            dto.setMiddleName(ob.getString("middleName"));
+            dto.setLastName(ob.getString("lastName"));
+            dto.setPassword(ob.getString("password"));
+            dto.setPatientID(ob.getInt("patientID"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return dto;
+    }
+
+    private EmailValidator validator;
 
     public void setFields() {
+        validator = new EmailValidator();
         rsRegister = (Button) findViewById(R.id.btnReg);
         rsMemberName = (EditText) findViewById(R.id.edtMemberName);
         rsMemberSurname = (EditText) findViewById(R.id.edtMemberLastNAme);
         rsMemberEmail = (AutoCompleteTextView) findViewById(R.id.edtMemberEmail);
-
+        rsCellphone = (EditText) findViewById(R.id.edtMemberPhone);
+        rsPin = (EditText) findViewById(R.id.edtMemberPassword);
         rsRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,10 +194,10 @@ public class RegisterActivity extends ActionBarActivity {
             for (int i = 0; i < accts.length; i++) {
                 emailAccountList.add(accts[i].name);
             }
-          //  ArrayAdapter adapter = new ArrayAdapter<String>(ctx, R.layout.xsimple_spinner_item, emailAccountList);
+              ArrayAdapter adapter = new ArrayAdapter<String>(ctx, R.layout.xsimple_spinner_item, emailAccountList);
 
 
-           // rsMemberEmail.setAdapter(adapter);
+             rsMemberEmail.setAdapter(adapter);
             rsMemberEmail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -151,7 +210,6 @@ public class RegisterActivity extends ActionBarActivity {
 
 
     static final String LOG = "RegisterActivity";
-
 
 
 }

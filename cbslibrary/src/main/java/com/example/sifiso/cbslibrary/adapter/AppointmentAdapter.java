@@ -70,7 +70,7 @@ public class AppointmentAdapter extends ArrayAdapter<BookingDTO>{
             h.statusReport_date.setVisibility(v.GONE);
         } else {
             h.status.setText("Attended");
-            h.status.setTextColor(v.getResources().getColor(R.color.absa_red));
+            h.status.setTextColor(v.getResources().getColor(R.color.green));
             h.statusReport.setVisibility(v.VISIBLE);
             h.statusReport_date.setVisibility(v.VISIBLE);
             h.statusReport.setText("Your have to come to the clinic " + dto.getDateAttended());

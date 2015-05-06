@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
+            android:inputType="textEmailAddress"
             android:backgroundTint="@color/DodgerBlue"
             android:hint="email address" />
 
@@ -37,6 +38,16 @@
             android:background="@color/OrangeRed"
             android:text="Sign in"
             android:textColor="@color/white" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Sign up"
+            android:gravity="center"
+            style="@style/Title4TextStyleBlue"
+            android:id="@+id/sign_up"
+            android:layout_weight="1"
+            android:layout_marginTop="15dp" />
 
     </LinearLayout>
 

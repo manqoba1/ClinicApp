@@ -13,6 +13,7 @@ import com.example.sifiso.cbslibrary.models.GcmDeviceDTO;
 import com.example.sifiso.cbslibrary.models.PatientDTO;
 import com.example.sifiso.cbslibrary.models.RequestPojo;
 import com.example.sifiso.cbslibrary.models.ResponsePojo;
+import com.example.sifiso.cbslibrary.models.TimeSlotDTO;
 import com.example.sifiso.cbslibrary.models.TownDTO;
 import com.example.sifiso.cbslibrary.toolbox.BaseVolley;
 import com.example.sifiso.cbslibrary.toolbox.BohaRequest;
@@ -71,7 +72,7 @@ public class DataUtil {
         }
     }
 
-    public static void searchClinic(final Context ctx, String sufix, int townID, final DataUtilInterface listener) {
+    public static void searchClinic(final Context ctx, int townID, final DataUtilInterface listener) {
 
         dataUtilInterface = listener;
         RequestPojo req = new RequestPojo();
@@ -199,7 +200,7 @@ public class DataUtil {
         }
     }
 
-    private List<ClinicDTO> clinicList(JSONArray ar) throws JSONException {
+    public static List<ClinicDTO> clinicList(JSONArray ar) throws JSONException {
         List<ClinicDTO> list = new ArrayList<>();
         for (int i = 0; i < ar.length(); i++) {
             JSONObject o = ar.getJSONObject(i);
@@ -209,6 +210,8 @@ public class DataUtil {
             dto.setEmail(o.getString("email"));
             dto.setLatitude(o.getDouble("latitude"));
             dto.setLongitude(o.getDouble("longitude"));
+            dto.setName(o.getString("name"));
+            dto.setTownName(o.getString("townName"));
             list.add(dto);
         }
         return list;
@@ -275,13 +278,16 @@ public class DataUtil {
                 dto.setDateAttended(ob.getString("dateAttended"));
                 dto.setRefNumber(ob.getString("refNumber"));
                 dto.setPatientID(ob.getInt("patientID"));
-                dto.setClinicID(ob.getInt("clinicID"));
+//                dto.setClinicID(ob.getInt("clinicID"));
                 dto.setFlag(ob.getInt("flag"));
+                dto.setSlots(ob.getString("slots"));
+                dto.setTimeSlotID(ob.getInt("timeSlotID"));
                 dto.setClinic(clinicDTO(ob.getJSONArray("clinic")));
                 list.add(dto);
             }
             return list;
         }
+
 
         private ClinicDTO clinicDTO(JSONArray ar) throws JSONException {
             ClinicDTO dto = new ClinicDTO();

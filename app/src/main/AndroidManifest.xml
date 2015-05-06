@@ -14,7 +14,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".BookingActivity"
+            android:name="com.example.sifiso.cbslibrary.activities.BookingActivity"
             android:label="@string/title_activity_booking" >
         </activity>
         <activity
