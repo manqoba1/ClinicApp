@@ -11,7 +11,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 
-
 import org.apache.http.util.ByteArrayBuffer;
 import org.json.JSONObject;
 
@@ -44,14 +43,13 @@ public class BohaRequest extends Request<JSONObject> {
     @Override
     protected Response<JSONObject> parseNetworkResponse(
             NetworkResponse response) {
-        JSONObject dto=null;
+        JSONObject dto = new JSONObject();
         try {
             Gson gson = new Gson();
             String resp = new String(response.data);
             Log.i(LOG, "response string length returned: " + resp.length());
             try {
-                dto = new JSONObject(resp);
-                Log.i(LOG, "response string length returned: " + dto.toString());
+                dto = gson.fromJson(resp, JSONObject.class);
                 if (dto != null) {
                     return Response.success(dto,
                             HttpHeaderParser.parseCacheHeaders(response));

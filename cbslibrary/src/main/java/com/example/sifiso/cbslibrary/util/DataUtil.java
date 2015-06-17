@@ -1,7 +1,6 @@
 package com.example.sifiso.cbslibrary.util;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,10 +12,8 @@ import com.example.sifiso.cbslibrary.models.GcmDeviceDTO;
 import com.example.sifiso.cbslibrary.models.PatientDTO;
 import com.example.sifiso.cbslibrary.models.RequestPojo;
 import com.example.sifiso.cbslibrary.models.ResponsePojo;
-import com.example.sifiso.cbslibrary.models.TimeSlotDTO;
 import com.example.sifiso.cbslibrary.models.TownDTO;
 import com.example.sifiso.cbslibrary.toolbox.BaseVolley;
-import com.example.sifiso.cbslibrary.toolbox.BohaRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -330,6 +327,7 @@ public class DataUtil {
             Log.d(LOG, response.toString());
         }
     }
+
 
     /*private void checkVirgin() {
         //SharedUtil.clearTeam(ctx);

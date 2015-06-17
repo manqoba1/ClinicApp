@@ -16,7 +16,6 @@ import com.example.sifiso.cbslibrary.models.RequestPojo;
 import com.example.sifiso.cbslibrary.util.Util;
 import com.google.gson.Gson;
 
-
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -91,7 +90,7 @@ public class BaseVolley {
         }
         retries = 0;
         String x = url + json;
-        Log.i(LOG, "...sending remote request: ....size: " + x.length() + "...>\n" + url+ jj);
+        Log.i(LOG, "...sending remote request: ....size: " + x.length() + "...>\n" + url + jj);
         bohaRequest = new BohaRequest(Method.POST, x,
                 onSuccessListener(), onErrorListener());
         bohaRequest.setRetryPolicy(new DefaultRetryPolicy((int) TimeUnit.SECONDS.toMillis(120),
