@@ -57,6 +57,11 @@ public class BookingFragment extends Fragment implements PageFragment {
         clinicID = t.getClinicID();
     }
 
+    private void clear() {
+        Sp_clinic.setText("Press here to choose a clinic");
+        clinicID = null;
+    }
+
     View v;
 
 
@@ -111,10 +116,13 @@ public class BookingFragment extends Fragment implements PageFragment {
                         Util.showErrorToast(ctx, r.getString("message"));
                         return;
                     }
-                    Util.showErrorToast(ctx, r.getString("message"));
-
+                    Util.showToast(ctx, r.getString("message"));
+                    clear();
+                    mListener.onBooked();
                 } catch (JSONException e) {
                     e.printStackTrace();
+
+
                 }
             }
 

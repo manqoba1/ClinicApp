@@ -176,7 +176,7 @@ public class DataUtil {
                 @Override
                 public void onResponseReceived(JSONObject response) {
                     try {
-                        if (response.getInt("success") < 0) {
+                        if (response.getInt("success") == 0) {
                             Toast.makeText(ctx, response.getString("message"), Toast.LENGTH_LONG).show();
                             listener.onError(response.getString("message"));
                             return;

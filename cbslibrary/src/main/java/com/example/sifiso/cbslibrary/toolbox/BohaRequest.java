@@ -43,13 +43,14 @@ public class BohaRequest extends Request<JSONObject> {
     @Override
     protected Response<JSONObject> parseNetworkResponse(
             NetworkResponse response) {
-        JSONObject dto = new JSONObject();
+        JSONObject dto=null;
         try {
             Gson gson = new Gson();
             String resp = new String(response.data);
             Log.i(LOG, "response string length returned: " + resp.length());
             try {
-                dto = gson.fromJson(resp, JSONObject.class);
+                dto = new JSONObject(resp);
+                Log.i(LOG, "response string length returned: " + dto.toString());
                 if (dto != null) {
                     return Response.success(dto,
                             HttpHeaderParser.parseCacheHeaders(response));

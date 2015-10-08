@@ -98,7 +98,7 @@ public class LoginActivity extends ActionBarActivity {
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
@@ -131,16 +131,17 @@ public class LoginActivity extends ActionBarActivity {
             @Override
             public void onResponse(JSONObject r) {
                 try {
-                    if(r.getInt("success")==0){
-                        Util.showErrorToast(ctx,r.getString("message"));
+                    if (r.getInt("success") == 0) {
+                        Util.showErrorToast(ctx, r.getString("message"));
                         return;
                     }
                     Log.d(LOG, r.toString());
                     patient = patientData(r.getJSONArray("patient"));
-                    SharedUtil.savePatientr(ctx,patient);
+                    SharedUtil.savePatientr(ctx, patient);
                     Intent intent = new Intent(LoginActivity.this, MainPagerActivity.class);
                     intent.putExtra("patient", patient);
                     startActivity(intent);
+                    finish();
 
                 } catch (JSONException e) {
                     e.printStackTrace();

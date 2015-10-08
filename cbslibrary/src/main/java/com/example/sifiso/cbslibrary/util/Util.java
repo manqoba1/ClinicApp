@@ -6,18 +6,21 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -30,14 +33,10 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListPopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import com.example.sifiso.cbslibrary.MainPagerActivity;
 import com.example.sifiso.cbslibrary.R;
 
 import org.joda.time.DateTime;
@@ -179,7 +178,31 @@ public class Util {
         customtoast.setDuration(Toast.LENGTH_LONG);
         customtoast.show();
     }
+    static NotificationManager mNotificationManager;
+    public static final int NOTIFICATION_ID = 1;
+    private static void sendNotification(String clinicName, Context ctx) {
 
+        mNotificationManager = (NotificationManager) ctx
+                .getSystemService(ctx.NOTIFICATION_SERVICE);
+
+        Intent resultIntent = new Intent(ctx, MainPagerActivity.class);
+        resultIntent.putExtra("refresh", true);
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(ctx);
+        //stackBuilder.addParentStack(MainPagerActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
+
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        String title = ctx.getResources().getString(R.string.notification_title);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ctx)
+                .setContentIntent(resultPendingIntent)
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentTitle(title)
+                .setContentText("Appointment booking made at "+clinicName + " clinic");
+
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+
+    }
     public static void showToast(Context ctx, String caption) {
         LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 

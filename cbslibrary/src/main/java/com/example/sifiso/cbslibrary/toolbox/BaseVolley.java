@@ -133,6 +133,7 @@ public class BaseVolley {
                         try {
                             Log.w(LOG, response.getString("message"));
                         } catch (Exception e) {
+                            Log.w(LOG, "{0}",e);
                         }
                     }
                     bohaVolleyListener.onResponseReceived(response);

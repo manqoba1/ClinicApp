@@ -154,15 +154,18 @@ public class SearchClinicFragment extends Fragment implements PageFragment {
             Log.d(LOG, bookingList.toString());
             for (int i = 0; i < bookingList.size(); i++) {
                 BookingDTO dto = bookingList.get(i);
-                clinicList.add(dto.getClinic());
-                if(clinicList.contains(dto.getClinic())){
-                 //   clinicList.remove(i);
+
+                if (clinicList.contains(dto.getClinic())) {
+                    //   clinicList.remove(i);
                 }
+                clinicList.add(dto.getClinic());
             }
             setList();
         }
     }
-static String LOG = SearchClinicFragment.class.getSimpleName();
+
+    static String LOG = SearchClinicFragment.class.getSimpleName();
+
     private void setSearchedClinicList(int townID) {
         DataUtil.searchClinic(ctx, townID, new DataUtil.DataUtilInterface() {
             @Override
@@ -176,7 +179,7 @@ static String LOG = SearchClinicFragment.class.getSimpleName();
                         clinicList = new ArrayList<ClinicDTO>();
                     }
                     clinicList = DataUtil.clinicList(r.getJSONArray("clinic"));
-                    Log.d(LOG,clinicList.toString());
+                    Log.d(LOG, clinicList.toString());
                     setList();
                 } catch (JSONException e) {
                     e.printStackTrace();

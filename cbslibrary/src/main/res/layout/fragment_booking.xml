@@ -23,7 +23,7 @@
 
             android:paddingLeft="4dp"
             android:layout_alignParentStart="true"
-            android:text="Choose Clinic" />
+            android:text="Press here to choose a clinic" />
 
         <Button
             android:id="@+id/btn_me_book"

@@ -182,7 +182,7 @@ public class BookingActivity extends ActionBarActivity implements SearchClinicFr
 
     @Override
     public void onBooked() {
-
+        finish();
     }
 
     @Override

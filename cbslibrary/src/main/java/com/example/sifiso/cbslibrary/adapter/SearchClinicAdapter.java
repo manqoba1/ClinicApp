@@ -21,7 +21,6 @@ import java.util.List;
 public class SearchClinicAdapter extends BaseAdapter {
     public interface SearchTownAdapterListener {
         public void onTownClicked(ClinicDTO clinic);
-
     }
 
     Context mCtx;

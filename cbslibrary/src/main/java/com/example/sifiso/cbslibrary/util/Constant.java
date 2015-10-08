@@ -4,6 +4,7 @@ package com.example.sifiso.cbslibrary.util;
  * Created by sifiso on 2015-05-02.
  */
 public class Constant {
+    //local url : http://your IP address/ca/
     public final static String URL = "http://diepsloot.freevar.com/";
     public final static String PREFIX = "?json=";
     public final static String LOGIN = URL + "login.php" + PREFIX;
